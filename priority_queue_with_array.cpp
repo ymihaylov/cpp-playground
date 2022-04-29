@@ -10,7 +10,7 @@ struct item {
 };
 
 // Store the element of a priority queue
-item pr[100000];
+item priorityQueue[100000];
 
 // Pointer to the last index
 int size = -1;
@@ -23,34 +23,32 @@ void enqueue(int value, int priority)
     size++;
 
     // Insert the element
-    pr[size].value = value;
-    pr[size].priority = priority;
+    priorityQueue[size].value = value;
+    priorityQueue[size].priority = priority;
 }
 
 // Function to check the top element
 int peek()
 {
     int highestPriority = INT_MIN;
-    int ind = -1;
+    int index = -1;
 
     // Check for the element with
     // the highest priority
     for (int i = 0; i <= size; i++) {
-        // If priority is same choose
-        // the element with the
-        // highest value
-        if (highestPriority == pr[i].priority && ind > -1
-            && pr[ind].value < pr[i].value) {
-            highestPriority = pr[i].priority;
-            ind = i;
-        } else if (highestPriority < pr[i].priority) {
-            highestPriority = pr[i].priority;
-            ind = i;
+        // If priority is same choose the element with the highest value
+        if (highestPriority == priorityQueue[i].priority && index > -1
+            && priorityQueue[index].value < priorityQueue[i].value) {
+            highestPriority = priorityQueue[i].priority;
+            index = i;
+        } else if (highestPriority < priorityQueue[i].priority) {
+            highestPriority = priorityQueue[i].priority;
+            index = i;
         }
     }
 
     // Return position of the element
-    return ind;
+    return index;
 }
 
 // Function to remove the element with
@@ -59,13 +57,13 @@ void dequeue()
 {
     // Find the position of the element
     // with highest priority
-    int ind = peek();
+    int index = peek();
 
     // Shift the element one index before
     // from the position of the element
     // with highest priority is found
-    for (int i = ind; i < size; i++) {
-        pr[i] = pr[i + 1];
+    for (int i = index; i < size; i++) {
+        priorityQueue[i] = priorityQueue[i + 1];
     }
 
     // Decrease the size of the
@@ -85,23 +83,23 @@ int main()
 
     // Stores the top element
     // at the moment
-    int ind = peek();
+    int index = peek();
 
-    cout << pr[ind].value << endl;
-
-    // Dequeue the top element
-    dequeue();
-
-    // Check the top element
-    ind = peek();
-    cout << pr[ind].value << endl;
+    cout << priorityQueue[index].value << endl;
 
     // Dequeue the top element
     dequeue();
 
     // Check the top element
-    ind = peek();
-    cout << pr[ind].value << endl;
+    index = peek();
+    cout << priorityQueue[index].value << endl;
+
+    // Dequeue the top element
+    dequeue();
+
+    // Check the top element
+    index = peek();
+    cout << priorityQueue[index].value << endl;
 
     return 0;
 }
